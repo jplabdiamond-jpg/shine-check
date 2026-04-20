@@ -3,11 +3,11 @@ import { ChevronLeft } from "lucide-react";
 
 export default function TokushohoPage() {
   const items: { label: string; value: string }[] = [
-    { label: "販売業者", value: "（運営者名をご記入ください）" },
-    { label: "運営責任者", value: "（責任者名をご記入ください）" },
-    { label: "所在地", value: "（住所をご記入ください）" },
-    { label: "電話番号", value: "（電話番号をご記入ください）※メールでのお問い合わせを優先いたします" },
-    { label: "メールアドレス", value: "（メールアドレスをご記入ください）" },
+    { label: "販売業者", value: "夜職ナビ Shine運営委員会" },
+    { label: "運営責任者", value: "Saneatsu Oki" },
+    { label: "所在地", value: "お問い合わせいただいた後に開示いたします" },
+    { label: "電話番号", value: "お問い合わせフォームよりご連絡ください" },
+    { label: "メールアドレス", value: "night.job.recruit@gmail.com" },
     { label: "サービス名", value: "水商売向け伝票管理SaaS" },
     { label: "サービスの内容", value: "水商売・夜業態の店舗向け伝票管理・売上集計・スタッフ管理機能を提供するSaaSサービス" },
     {
