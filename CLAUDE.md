@@ -21,7 +21,7 @@
 cd /sessions/focused-trusting-davinci/mnt/水商売用の伝票SaaS
 node --input-type=module << 'EOF'
 import { neon } from '@neondatabase/serverless';
-const sql = neon('postgresql://neondb_owner:npg_Njkl2QLyh9CW@ep-restless-tooth-a468ubrd.us-east-1.aws.neon.tech/neondb?sslmode=require');
+const sql = neon(process.env.DATABASE_URL);
 const result = await sql`SELECT ...`;
 console.log(result);
 EOF
@@ -224,7 +224,7 @@ npx tsc --noEmit 2>&1 | grep "error TS"
 cd /sessions/focused-trusting-davinci/mnt/水商売用の伝票SaaS
 node --input-type=module << 'EOF'
 import { neon } from '@neondatabase/serverless';
-const sql = neon('postgresql://neondb_owner:npg_Njkl2QLyh9CW@ep-restless-tooth-a468ubrd.us-east-1.aws.neon.tech/neondb?sslmode=require');
+const sql = neon(process.env.DATABASE_URL);
 const r = await sql`SELECT ...`;
 console.log(JSON.stringify(r, null, 2));
 EOF
