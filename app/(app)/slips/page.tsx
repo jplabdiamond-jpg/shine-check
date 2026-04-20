@@ -5,6 +5,7 @@ import { useAuthStore } from "@/store/authStore";
 import { formatCurrency, formatDateTime, getTodayBusinessDate } from "@/lib/utils";
 import Link from "next/link";
 import { Plus, Search, FileText, AlertCircle, Calendar } from "lucide-react";
+import ShineBanner from "@/components/ShineBanner";
 import type { Slip } from "@/types/database";
 import { cn } from "@/lib/utils";
 
@@ -153,6 +154,9 @@ export default function SlipsPage() {
           })}
         </div>
       )}
+
+      {/* Shine バナー */}
+      <ShineBanner />
     </div>
   );
 }

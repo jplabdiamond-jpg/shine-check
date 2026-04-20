@@ -5,6 +5,7 @@ import { useAuthStore } from "@/store/authStore";
 import { formatCurrency, formatDateTime, getTodayBusinessDate } from "@/lib/utils";
 import Link from "next/link";
 import { FileText, TrendingUp, Clock, Table2, Plus, RefreshCw, AlertCircle, CheckCircle, HelpCircle, X } from "lucide-react";
+import ShineBanner from "@/components/ShineBanner";
 import toast from "react-hot-toast";
 import type { Slip, Table } from "@/types/database";
 
@@ -344,6 +345,9 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Shine バナー */}
+      <ShineBanner />
 
       {/* フッター：法的リンク */}
       <footer className="mt-8 pb-24 text-center">

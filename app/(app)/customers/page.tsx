@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useAuthStore } from "@/store/authStore";
 import { formatCurrency } from "@/lib/utils";
 import { Plus, Crown, Search, Star, Phone, User, ChevronRight } from "lucide-react";
+import ShineBanner from "@/components/ShineBanner";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import type { Customer } from "@/types/database";
@@ -194,6 +195,9 @@ export default function CustomersPage() {
           </div>
         </div>
       )}
+
+      {/* Shine バナー */}
+      <ShineBanner />
     </div>
   );
 }

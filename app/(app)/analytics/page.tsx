@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useAuthStore } from "@/store/authStore";
 import { formatCurrency } from "@/lib/utils";
 import { Crown, TrendingUp, BarChart3, Users, ShoppingBag } from "lucide-react";
+import ShineBanner from "@/components/ShineBanner";
 import Link from "next/link";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -158,6 +159,9 @@ export default function AnalyticsPage() {
           </div>
         )}
       </div>
+
+      {/* Shine バナー */}
+      <ShineBanner />
     </div>
   );
 }

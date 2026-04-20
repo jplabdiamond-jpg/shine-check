@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useAuthStore } from "@/store/authStore";
 import { formatCurrency } from "@/lib/utils";
 import { Plus, Crown, Users, TrendingUp, Edit2, Trash2, Clock, LogIn, CheckCircle2, XCircle } from "lucide-react";
+import ShineBanner from "@/components/ShineBanner";
 import toast from "react-hot-toast";
 import type { Cast } from "@/types/database";
 import Link from "next/link";
@@ -588,6 +589,9 @@ export default function CastsPage() {
           </div>
         </div>
       )}
+
+      {/* Shine バナー */}
+      <ShineBanner />
     </div>
   );
 }

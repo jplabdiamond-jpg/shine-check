@@ -5,6 +5,7 @@ import { useAuthStore } from "@/store/authStore";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { Plus, Table2, Clock, Settings2 } from "lucide-react";
+import ShineBanner from "@/components/ShineBanner";
 import toast from "react-hot-toast";
 import type { Table, Slip } from "@/types/database";
 
@@ -377,6 +378,9 @@ export default function TablesPage() {
           </div>
         </div>
       )}
+
+      {/* Shine バナー */}
+      <ShineBanner />
     </div>
   );
 }

@@ -76,3 +76,36 @@ button, [role="button"] {
     @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-pink-50 text-pink-700;
   }
 }
+
+/* ── ShineBanner アニメーション ── */
+@keyframes shineBannerFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shineBannerGlow {
+  0%, 100% {
+    box-shadow: 0 0 0px rgba(255, 45, 120, 0);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 0 18px 4px rgba(255, 45, 120, 0.45);
+    filter: brightness(1.08);
+  }
+}
+
+.shine-banner-wrapper {
+  display: inline-block;
+}
+
+.shine-banner-img {
+  animation:
+    shineBannerFadeIn 0.8s ease-out both,
+    shineBannerGlow   2.4s ease-in-out 1.2s infinite;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.shine-banner-img:hover {
+  transform: scale(1.02);
+}

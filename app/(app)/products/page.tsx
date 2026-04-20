@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useAuthStore } from "@/store/authStore";
 import { formatCurrency } from "@/lib/utils";
 import { Plus, Star, Edit2, Trash2, Package, Crown } from "lucide-react";
+import ShineBanner from "@/components/ShineBanner";
 import toast from "react-hot-toast";
 import type { Product, ProductCategory } from "@/types/database";
 import { cn } from "@/lib/utils";
@@ -216,6 +217,9 @@ export default function ProductsPage() {
           </div>
         </div>
       )}
+
+      {/* Shine バナー */}
+      <ShineBanner />
     </div>
   );
 }
