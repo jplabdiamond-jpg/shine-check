@@ -159,7 +159,7 @@ export default function SettingsPage() {
               <Sparkles className="w-4 h-4" />
               <span className="font-semibold">プレミアムプランにアップグレード</span>
             </div>
-            <p className="text-xs opacity-80 mb-3">月額 ¥4,980 / 伝票無制限・30日保存・全機能</p>
+            <p className="text-xs opacity-80 mb-3">月額 ¥5,000 / 伝票無制限・30日保存・全機能</p>
             <button
               onClick={handleUpgrade}
               disabled={checkoutLoading}

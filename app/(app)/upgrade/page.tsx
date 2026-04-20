@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Crown, Check, Zap } from "lucide-react";
-import Link from "next/link";
 import toast from "react-hot-toast";
 
 const STANDARD_FEATURES = [
@@ -100,10 +99,6 @@ export default function UpgradePage() {
         </div>
       </div>
 
-      <p className="text-center text-xs text-[#8792A2] mt-4">
-        ※ Stripe連携による決済は別途設定が必要です。
-        <Link href="/settings" className="text-[#FF2D78] ml-1">設定ページへ</Link>
-      </p>
     </div>
   );
 }
