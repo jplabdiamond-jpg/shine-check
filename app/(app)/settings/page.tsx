@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthStore } from "@/store/authStore";
-import { Save, Crown, Shield, Store as StoreIcon, Timer, LogOut } from "lucide-react";
+import { Save, Crown, Shield, Store as StoreIcon, Timer, LogOut, Sparkles, ExternalLink } from "lucide-react";
 import toast from "react-hot-toast";
-import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { signOut } from "next-auth/react";
 import type { Store } from "@/types/database";
 
@@ -37,6 +37,49 @@ export default function SettingsPage() {
   });
   const [wageUnitMinutes, setWageUnitMinutes] = useState<30 | 60>(s.wageUnitMinutes ?? 60);
   const [saving, setSaving] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [portalLoading, setPortalLoading] = useState(false);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const upgraded = searchParams.get("upgraded");
+    const canceled = searchParams.get("canceled");
+    if (upgraded === "true") {
+      toast.success("プレミアムプランへのアップグレードが完了しました！");
+    } else if (canceled === "true") {
+      toast("アップグレードをキャンセルしました");
+    }
+  }, [searchParams]);
+
+  async function handleUpgrade() {
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch("/api/stripe/checkout", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      if (data.url) window.location.href = data.url;
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "エラーが発生しました";
+      toast.error(msg);
+    } finally {
+      setCheckoutLoading(false);
+    }
+  }
+
+  async function handlePortal() {
+    setPortalLoading(true);
+    try {
+      const res = await fetch("/api/stripe/portal", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      if (data.url) window.location.href = data.url;
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "エラーが発生しました";
+      toast.error(msg);
+    } finally {
+      setPortalLoading(false);
+    }
+  }
 
   async function save() {
     if (!store?.id) return;
@@ -87,18 +130,45 @@ export default function SettingsPage() {
     <div className="p-4 md:p-6 max-w-2xl mx-auto space-y-4">
       <h1 className="text-xl font-semibold text-[#3C4257]">設定</h1>
 
-      <div className={`card ${isPremium() ? "border-yellow-200 bg-yellow-50" : ""}`}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Crown className={`w-5 h-5 ${isPremium() ? "text-yellow-500" : "text-[#8792A2]"}`} />
-            <div>
-              <p className="font-medium text-[#3C4257]">{isPremium() ? "プレミアムプラン" : "スタンダードプラン"}</p>
-              <p className="text-xs text-[#8792A2]">{isPremium() ? "全機能利用可能" : `1日${store?.daily_slip_limit ?? 15}枚まで（テスト中のため無料）`}</p>
-            </div>
+      {/* プランカード */}
+      {isPremium() ? (
+        <div className="card border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50">
+          <div className="flex items-center gap-2 mb-3">
+            <Crown className="w-5 h-5 text-yellow-500" />
+            <p className="font-semibold text-[#3C4257]">プレミアムプラン</p>
+            <span className="ml-auto text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full font-medium">有効</span>
           </div>
-          {!isPremium() && <Link href="/upgrade" className="btn-primary text-xs px-3 py-2">アップグレード</Link>}
+          <p className="text-xs text-[#8792A2] mb-3">伝票保存30日・全機能アンロック済み</p>
+          <button
+            onClick={handlePortal}
+            disabled={portalLoading}
+            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg border border-yellow-300 text-yellow-700 text-sm hover:bg-yellow-100 transition-colors">
+            <ExternalLink className="w-3.5 h-3.5" />
+            {portalLoading ? "読み込み中..." : "プラン・支払い管理"}
+          </button>
         </div>
-      </div>
+      ) : (
+        <div className="card border-[#FFD6E7]">
+          <div className="flex items-center gap-2 mb-2">
+            <Crown className="w-5 h-5 text-[#8792A2]" />
+            <p className="font-medium text-[#3C4257]">スタンダードプラン</p>
+          </div>
+          <p className="text-xs text-[#8792A2] mb-4">1日{store?.daily_slip_limit ?? 15}枚まで・伝票保存3日</p>
+          <div className="bg-gradient-to-r from-[#FF2D78] to-[#FF6B6B] rounded-xl p-4 text-white mb-3">
+            <div className="flex items-center gap-2 mb-1">
+              <Sparkles className="w-4 h-4" />
+              <span className="font-semibold">プレミアムプランにアップグレード</span>
+            </div>
+            <p className="text-xs opacity-80 mb-3">月額 ¥4,980 / 伝票無制限・30日保存・全機能</p>
+            <button
+              onClick={handleUpgrade}
+              disabled={checkoutLoading}
+              className="w-full bg-white text-[#FF2D78] font-semibold py-2.5 rounded-lg text-sm hover:bg-pink-50 transition-colors active:scale-95">
+              {checkoutLoading ? "処理中..." : "今すぐアップグレード →"}
+            </button>
+          </div>
+        </div>
+      )}
 
       {isAdmin() && (
         <div className="card">

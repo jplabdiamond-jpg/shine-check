@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import { Crown, Check, Zap } from "lucide-react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const STANDARD_FEATURES = [
   "1日15枚まで伝票作成",
@@ -22,6 +26,22 @@ const PREMIUM_FEATURES = [
 ];
 
 export default function UpgradePage() {
+  const [loading, setLoading] = useState(false);
+
+  async function handleUpgrade() {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/stripe/checkout", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      if (data.url) window.location.href = data.url;
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "エラーが発生しました";
+      toast.error(msg);
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="p-4 md:p-6 max-w-2xl mx-auto">
       <div className="text-center mb-8">
@@ -71,8 +91,11 @@ export default function UpgradePage() {
               </li>
             ))}
           </ul>
-          <button className="btn-primary w-full text-center">
-            プレミアムにアップグレード
+          <button
+            onClick={handleUpgrade}
+            disabled={loading}
+            className="btn-primary w-full text-center">
+            {loading ? "処理中..." : "プレミアムにアップグレード"}
           </button>
         </div>
       </div>
