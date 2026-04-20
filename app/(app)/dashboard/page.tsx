@@ -344,6 +344,18 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* フッター：法的リンク */}
+      <footer className="mt-8 pb-24 text-center">
+        <div className="flex items-center justify-center gap-4 text-xs text-[#C4CACD]">
+          <Link href="/privacy" className="hover:text-[#FF2D78] transition-colors">プライバシーポリシー</Link>
+          <span>|</span>
+          <Link href="/terms" className="hover:text-[#FF2D78] transition-colors">利用規約</Link>
+          <span>|</span>
+          <Link href="/tokushoho" className="hover:text-[#FF2D78] transition-colors">特定商取引法に基づく表記</Link>
+        </div>
+        <p className="text-[10px] text-[#C4CACD] mt-2">© 2025 水商売伝票SaaS All rights reserved.</p>
+      </footer>
     </div>
   );
 }
