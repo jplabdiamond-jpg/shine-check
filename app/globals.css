@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #FF2D78;
+  --primary-dark: #E0195F;
+  --primary-light: #FF6BA8;
+  --surface: #FFF5F8;
+  --border: #FFD6E7;
+  --text: #3C2233;
+  --text-muted: #A07090;
+  --success: #09825D;
+  --error: #DF1B41;
+  --dark: #1A0A14;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: Inter, "Hiragino Sans", "Yu Gothic", sans-serif;
+  color: var(--text);
+  background: var(--surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* タッチ操作最適化 */
+button, [role="button"] {
+  touch-action: manipulation;
+  user-select: none;
+}
+
+/* スクロールバー細め */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+@layer components {
+  .btn-primary {
+    @apply px-5 py-2.5 rounded text-white font-medium text-sm transition-all active:scale-95;
+    background: linear-gradient(135deg, #FF2D78 0%, #E0195F 100%);
+    box-shadow: 0 4px 6px rgba(255,45,120,.25), 0 1px 3px rgba(0,0,0,.08);
+  }
+  .btn-primary:hover {
+    @apply -translate-y-px;
+    box-shadow: 0 7px 14px rgba(255,45,120,.3), 0 3px 6px rgba(0,0,0,.08);
+  }
+  .btn-secondary {
+    @apply px-5 py-2.5 rounded bg-white border border-[#FFD6E7] text-[#3C2233] font-medium text-sm transition-all active:scale-95;
+  }
+  .btn-secondary:hover { @apply border-[#FF2D78]; }
+  .btn-danger {
+    @apply px-5 py-2.5 rounded text-white font-medium text-sm transition-all active:scale-95 bg-[#DF1B41];
+  }
+  .card {
+    @apply bg-white rounded-xl border border-[#FFD6E7] p-4;
+    box-shadow: 0 2px 5px rgba(255,45,120,.08), 0 1px 2px rgba(0,0,0,.06);
+  }
+  .input {
+    @apply w-full border border-[#FFD6E7] rounded px-3 py-2.5 text-sm text-[#3C2233] outline-none transition-colors;
+  }
+  .input:focus { @apply border-[#FF2D78]; }
+  .badge-success {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700;
+  }
+  .badge-warn {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700;
+  }
+  .badge-error {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-700;
+  }
+  .badge-primary {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-pink-50 text-pink-700;
+  }
+}
