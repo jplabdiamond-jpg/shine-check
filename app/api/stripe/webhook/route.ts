@@ -18,8 +18,10 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
   const status = subscription.status;
   const isActive = status === "active" || status === "trialing";
   const plan = isActive ? "premium" : "standard";
-  const expiresAt = isActive
-    ? new Date(subscription.current_period_end * 1000).toISOString()
+  // Stripe v16: current_period_end は items.data[0] に移動
+  const periodEnd = subscription.items?.data?.[0]?.current_period_end;
+  const expiresAt = isActive && periodEnd
+    ? new Date(periodEnd * 1000).toISOString()
     : null;
 
   await sql`
@@ -80,11 +82,15 @@ export async function POST(req: NextRequest) {
         break;
 
       case "invoice.payment_failed": {
+        // Stripe v16: Invoice.subscription → Invoice.parent.subscription_details.subscription
         const invoice = event.data.object as Stripe.Invoice;
-        if (invoice.subscription) {
-          const sub = await stripe.subscriptions.retrieve(
-            invoice.subscription as string
-          );
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const invoiceAny = invoice as any;
+        const subId =
+          invoiceAny?.parent?.subscription_details?.subscription ??
+          invoiceAny?.subscription;
+        if (subId) {
+          const sub = await stripe.subscriptions.retrieve(subId as string);
           await handleSubscriptionUpdate(sub);
         }
         break;
