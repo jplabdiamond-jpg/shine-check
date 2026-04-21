@@ -6,6 +6,18 @@ const nextConfig = {
   images: {
     domains: ["jjfddcngrewyxfycffrg.supabase.co"],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/lp",
+        destination: "/lp/index.html",
+      },
+      {
+        source: "/lp/",
+        destination: "/lp/index.html",
+      },
+    ];
+  },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
