@@ -185,6 +185,17 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// デバッグ用（一時）: ADMIN_SECRETの状態確認
+export async function PATCH() {
+  const s = process.env.ADMIN_SECRET ?? "";
+  return NextResponse.json({
+    env_len: s.length,
+    env_first3: s.slice(0, 3),
+    env_last3: s.slice(-3),
+    node_env: process.env.NODE_ENV,
+  });
+}
+
 // ログアウト
 export async function DELETE() {
   const res = NextResponse.json({ success: true });
