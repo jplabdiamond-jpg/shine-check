@@ -169,12 +169,12 @@ export default function AdminPage() {
     setData(null);
   };
 
-  // クッキーが残っていれば自動ログイン試行
+  // クッキーが残っていれば自動ログイン試行（リロード後もセッション維持）
   useEffect(() => {
     fetch("/api/admin").then(async (res) => {
       if (res.ok) {
         const json = await res.json();
-        if (json.success) { setAuthed(true); setData(json); }
+        if (json.success && json.stats) { setAuthed(true); setData(json); }
       }
     });
   }, []);
@@ -182,7 +182,7 @@ export default function AdminPage() {
   // ─── ログイン画面 ───────────────────────────────────────
   if (!authed) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-950">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#030712" }}>
         <form onSubmit={handleLogin} className="bg-gray-900 border border-gray-700 rounded-2xl p-8 w-80 shadow-2xl">
           <div className="text-center mb-6">
             <div className="text-3xl mb-2">✨</div>
@@ -212,7 +212,7 @@ export default function AdminPage() {
   // ─── ローディング ───────────────────────────────────────
   if (loading && !data) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-950">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#030712" }}>
         <p className="text-white">読み込み中...</p>
       </div>
     );
@@ -224,9 +224,9 @@ export default function AdminPage() {
 
   // ─── メイン画面 ─────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100">
+    <div className="min-h-screen text-gray-100" style={{ background: "#030712", color: "#f3f4f6" }}>
       {/* ヘッダー */}
-      <header className="bg-gray-900 border-b border-gray-800 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
+      <header className="border-b border-gray-800 px-4 py-3 flex items-center justify-between sticky top-0 z-10" style={{ background: "#111827" }}>
         <div className="flex items-center gap-2">
           <span className="text-yellow-400 text-xl">✨</span>
           <span className="font-bold text-white">Shine Check Admin</span>
@@ -242,7 +242,7 @@ export default function AdminPage() {
       </header>
 
       {/* タブ */}
-      <nav className="bg-gray-900 border-b border-gray-800 px-4 overflow-x-auto">
+      <nav className="border-b border-gray-800 px-4 overflow-x-auto" style={{ background: "#111827" }}>
         <div className="flex gap-1 min-w-max">
           {TABS.map(t => (
             <button
