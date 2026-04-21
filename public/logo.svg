@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="ShineCheckLogo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1750px" height="320px" viewBox="80 50 1750 320" style="background-color: transparent;" xml:space="preserve">
+<svg version="1.1" id="ShineCheckLogo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1900" height="320" viewBox="0 0 1900 320" overflow="visible" style="background-color: transparent;" xml:space="preserve">
 
 <!-- アイコン部分 -->
-<g transform="translate(88, 50) scale(0.6)">
+<g transform="translate(8, 0) scale(0.6)">
     <path d="M378.656,0H133.359C108.313,0,88,20.313,88,45.344v421.313C88,491.688,108.313,512,133.359,512h245.297
 			C403.688,512,424,491.688,424,466.656V45.344C424,20.313,403.688,0,378.656,0z M176,440h-32v-32h32V440z M176,376h-32v-32h32V376z
 			 M176,312h-32v-32h32V312z M176,248h-32v-32h32V248z M240,440h-32v-32h32V440z M240,376h-32v-32h32V376z M240,312h-32v-32h32V312z
@@ -11,9 +11,9 @@
 </g>
 
 <!-- メインテキスト -->
-<text x="420" y="245" font-family="'Times New Roman', serif" font-size="220" font-weight="bold" fill="#ffffff">Shine Check</text>
+<text x="340" y="220" font-family="'Times New Roman', serif" font-size="200" font-weight="bold" fill="#ffffff">Shine Check</text>
 
 <!-- サブテキスト -->
-<text x="425" y="340" font-family="'Helvetica', sans-serif" font-size="50" font-weight="bold" letter-spacing="10" fill="#ffffff">TABLE ACCOUNTING Tool</text>
+<text x="345" y="295" font-family="'Helvetica', sans-serif" font-size="46" font-weight="bold" letter-spacing="10" fill="#ffffff">TABLE ACCOUNTING Tool</text>
 
 </svg>
