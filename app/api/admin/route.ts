@@ -164,8 +164,7 @@ export async function POST(req: NextRequest) {
   try {
     const { secret } = await req.json();
     const envSecret = process.env.ADMIN_SECRET ?? "";
-    console.log("[Admin POST] secret_len:", secret?.length, "env_len:", envSecret.length, "match:", secret === envSecret);
-    if (!envSecret || secret !== envSecret) {
+if (!envSecret || secret !== envSecret) {
       return NextResponse.json({ error: "Invalid secret" }, { status: 401 });
     }
     const res = NextResponse.json({ success: true });
@@ -183,17 +182,6 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
-}
-
-// デバッグ用（一時）: ADMIN_SECRETの状態確認
-export async function PATCH() {
-  const s = process.env.ADMIN_SECRET ?? "";
-  return NextResponse.json({
-    env_len: s.length,
-    env_first3: s.slice(0, 3),
-    env_last3: s.slice(-3),
-    node_env: process.env.NODE_ENV,
-  });
 }
 
 // ログアウト
