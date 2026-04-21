@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   description: "キャバクラ・スナック・ホスト向け伝票デジタル化SaaS",
   manifest: "/manifest.json",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Shine Check" },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export const viewport: Viewport = {
