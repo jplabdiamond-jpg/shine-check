@@ -163,7 +163,9 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const { secret } = await req.json();
-    if (secret !== process.env.ADMIN_SECRET) {
+    const envSecret = process.env.ADMIN_SECRET ?? "";
+    console.log("[Admin POST] secret_len:", secret?.length, "env_len:", envSecret.length, "match:", secret === envSecret);
+    if (!envSecret || secret !== envSecret) {
       return NextResponse.json({ error: "Invalid secret" }, { status: 401 });
     }
     const res = NextResponse.json({ success: true });
