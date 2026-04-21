@@ -290,13 +290,15 @@
       border: none;
       border-radius: 100px;
       padding: 8px 22px;
-      font-size: 18px;
+      font-size: clamp(13px, 3.5vw, 18px);
       color: #ffffff;
       margin-bottom: 32px;
       font-weight: 600;
       box-shadow: 0 4px 16px rgba(107,18,48,0.5);
+      white-space: nowrap;
+      max-width: calc(100vw - 48px);
     }
-    .hero__badge::before { content: "★"; font-size: 13px; color: #FFB3D0; }
+    .hero__badge::before { content: "★"; font-size: 13px; color: #FFB3D0; flex-shrink: 0; }
     .hero__title {
       font-size: clamp(36px, 7vw, 72px);
       font-weight: 900;
@@ -312,7 +314,7 @@
       filter: drop-shadow(0 0 20px rgba(255,110,168,0.5));
     }
     .hero__subtitle {
-      font-size: clamp(16px, 2.5vw, 20px);
+      font-size: clamp(14px, 3.8vw, 20px);
       color: #ffffff;
       max-width: 600px;
       margin: 0 auto 48px;
@@ -1305,8 +1307,9 @@
       <span class="highlight">もっとスマートに。</span>
     </h1>
     <p class="hero__subtitle">
-      キャバクラ・ガールズバー・スナック向けの<br>
-      クラウド型伝票管理ツール「Shine Check」。<br>手書きミスをゼロにして、売上管理を自動化。
+      キャバクラ・ガールズバー・スナック向け<br>
+      クラウド型伝票管理ツール「Shine Check」。<br>
+      手書きミスをゼロにして、売上管理を自動化。
     </p>
     <div class="hero__btns">
       <a href="https://check.yoru-navi-shine.com/register" class="btn-primary">無料で始める →</a>
