@@ -300,11 +300,14 @@
     }
     .hero__badge::before { content: "★"; font-size: 13px; color: #FFB3D0; flex-shrink: 0; }
     .hero__title {
-      font-size: clamp(36px, 7vw, 72px);
+      font-size: clamp(28px, 6.5vw, 72px);
       font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -2px;
+      line-height: 1.15;
+      letter-spacing: -1px;
       margin-bottom: 24px;
+    }
+    @media (max-width: 480px) {
+      .hero__title { font-size: clamp(26px, 7.5vw, 40px); letter-spacing: -0.5px; }
     }
     .hero__title .highlight {
       background: linear-gradient(135deg, #FF6EA8 0%, #FFB3D0 40%, #ffffff 100%);
