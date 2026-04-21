@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
         s.id,
         s.name,
         s.plan,
-        s.plan_expires_at,
+        NULL AS plan_expires_at,
         s.stripe_customer_id,
         s.stripe_subscription_id,
         s.tax_rate,
@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
         su.role,
         su.is_active,
         su.created_at,
-        su.last_login_at,
+        su.updated_at AS last_login_at,
         s.name AS store_name,
         s.plan AS store_plan
       FROM store_users su
