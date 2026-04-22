@@ -4,10 +4,110 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useAuthStore } from "@/store/authStore";
 import { formatCurrency, formatDateTime, getTodayBusinessDate } from "@/lib/utils";
 import Link from "next/link";
-import { FileText, TrendingUp, Clock, Table2, Plus, RefreshCw, AlertCircle, CheckCircle, HelpCircle, X } from "lucide-react";
+import { FileText, TrendingUp, Clock, Table2, Plus, RefreshCw, AlertCircle, CheckCircle, HelpCircle, X, MessageSquarePlus, Send, ChevronDown } from "lucide-react";
 import ShineBanner from "@/components/ShineBanner";
 import toast from "react-hot-toast";
 import type { Slip, Table } from "@/types/database";
+
+// ─── FeedbackForm コンポーネント ─────────────────────────────────
+const CATEGORIES = ["改善要望", "新機能の提案", "バグ・不具合", "操作に関する質問", "その他"];
+
+function FeedbackForm() {
+  const [open, setOpen] = useState(false);
+  const [category, setCategory] = useState(CATEGORIES[0]);
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!message.trim()) { toast.error("内容を入力してください"); return; }
+    setSending(true);
+    try {
+      const res = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ category, message }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error ?? "送信に失敗しました");
+      }
+      setSent(true);
+      setMessage("");
+      toast.success("フィードバックを送信しました。ご協力ありがとうございます！");
+      setTimeout(() => { setSent(false); setOpen(false); }, 2500);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "送信に失敗しました");
+    } finally {
+      setSending(false);
+    }
+  }
+
+  return (
+    <div className="mt-4">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-dashed border-[#FF2D78]/40 bg-pink-50/50 hover:bg-pink-50 transition-colors text-sm text-[#FF2D78] font-medium"
+      >
+        <span className="flex items-center gap-2">
+          <MessageSquarePlus className="w-4 h-4" />
+          改善のご意見・バグ報告はこちらから
+        </span>
+        <ChevronDown className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div className="mt-2 p-4 rounded-xl border border-[#E3E8EE] bg-white shadow-sm">
+          {sent ? (
+            <div className="text-center py-6">
+              <CheckCircle className="w-10 h-10 text-emerald-500 mx-auto mb-2" />
+              <p className="font-semibold text-[#3C4257]">送信しました！</p>
+              <p className="text-xs text-[#8792A2] mt-1">ご登録メールアドレスに確認メールをお送りしました。</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <p className="text-xs text-[#8792A2] mb-3">
+                機能改善・新機能のご提案・バグやトラブルなど、お気軽にお知らせください。<br />
+                送信内容はご登録のメールアドレスにも控えが届きます。
+              </p>
+              <div className="mb-3">
+                <label className="block text-xs font-medium text-[#3C4257] mb-1">カテゴリ</label>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="w-full border border-[#E3E8EE] rounded-lg px-3 py-2 text-sm text-[#3C4257] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/30 focus:border-[#FF2D78]"
+                >
+                  {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+              <div className="mb-3">
+                <label className="block text-xs font-medium text-[#3C4257] mb-1">内容 <span className="text-[#FF2D78]">*</span></label>
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="例：〇〇の画面で△△ができると便利だと思います。&#10;例：〇〇ボタンを押すとエラーが表示されます。"
+                  maxLength={2000}
+                  rows={5}
+                  className="w-full border border-[#E3E8EE] rounded-lg px-3 py-2 text-sm text-[#3C4257] resize-none focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/30 focus:border-[#FF2D78] placeholder-[#C4CACD]"
+                />
+                <p className="text-right text-xs text-[#C4CACD] mt-0.5">{message.length}/2000</p>
+              </div>
+              <button
+                type="submit"
+                disabled={sending || !message.trim()}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#FF2D78] text-white text-sm font-medium hover:bg-[#e01f66] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {sending ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                {sending ? "送信中..." : "送信する"}
+              </button>
+            </form>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ─── Tip コンポーネント ───────────────────────────────────────────
 function Tip({ children }: { children: React.ReactNode }) {
@@ -345,6 +445,9 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* フィードバックフォーム */}
+      <FeedbackForm />
 
       {/* Shine バナー */}
       <ShineBanner />
