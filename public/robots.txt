@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Allow: /lp
+Allow: /register
+Allow: /login
+Allow: /privacy
+Allow: /terms
+
+# Disallow private routes
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /slips/
+Disallow: /tables/
+Disallow: /products/
+Disallow: /settings/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://check.yoru-navi-shine.com/sitemap.xml
