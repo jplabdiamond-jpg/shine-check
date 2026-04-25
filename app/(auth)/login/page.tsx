@@ -73,8 +73,11 @@ export default function LoginPage() {
               {loading ? "ログイン中..." : "ログイン"}
             </button>
           </form>
-          <div className="mt-4 pt-4 border-t border-[#FFD6E7] text-center">
-            <a href="/register" className="text-sm text-[#FF2D78] hover:underline">新規店舗登録はこちら</a>
+          <div className="mt-4 pt-4 border-t border-[#FFD6E7] text-center space-y-2">
+            <a href="/reset-password" className="block text-sm text-[#A07090] hover:text-[#FF2D78] hover:underline">
+              パスワードをお忘れの方
+            </a>
+            <a href="/register" className="block text-sm text-[#FF2D78] hover:underline">新規店舗登録はこちら</a>
           </div>
         </div>
       </div>
