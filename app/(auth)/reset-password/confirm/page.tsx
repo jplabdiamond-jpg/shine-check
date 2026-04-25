@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, Eye, EyeOff, CheckCircle, AlertCircle } from "lucide-react";
 import toast from "react-hot-toast";
 
-export default function ResetPasswordConfirmPage() {
+function ResetPasswordConfirmContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token") || "";
@@ -161,5 +161,18 @@ export default function ResetPasswordConfirmPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ResetPasswordConfirmPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center"
+        style={{ background: "linear-gradient(135deg, #1A0A14 0%, #3D0A22 100%)" }}>
+        <div className="text-pink-300 text-sm">読み込み中...</div>
+      </div>
+    }>
+      <ResetPasswordConfirmContent />
+    </Suspense>
   );
 }
