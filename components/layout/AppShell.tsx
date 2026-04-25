@@ -9,7 +9,7 @@ import { useAuthStore } from "@/store/authStore";
 import type { StoreUser, Store } from "@/types/database";
 import {
   LayoutDashboard, FileText, Table2, Package, Users, BarChart3,
-  Settings, LogOut, Crown, UserCircle2, Menu, X, ChevronRight
+  Settings, LogOut, Crown, UserCircle2, Menu, X, ChevronRight, BookOpen
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
@@ -28,6 +28,7 @@ const navItems = [
   { href: "/customers", icon: UserCircle2, label: "顧客管理", premium: true },
   { href: "/casts", icon: Users, label: "キャスト", premium: true },
   { href: "/analytics", icon: BarChart3, label: "分析", premium: true },
+  { href: "/media", icon: BookOpen, label: "Media・使い方" },
   { href: "/settings", icon: Settings, label: "設定" },
 ];
 
