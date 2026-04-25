@@ -74,22 +74,28 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 
       if (productId && mergeable) {
         // 同じproduct_id & 同じcast_idなら数量加算
-        const existing = await sql`
-          SELECT id, quantity FROM slip_items
-          WHERE slip_id = ${params.id} AND product_id = ${productId}
-            AND item_type = 'product'
-            AND (cast_id = ${castId} OR (cast_id IS NULL AND ${castId} IS NULL))
-        `;
+        // castIdのnull/non-nullで分岐（neon sqlテンプレートで ${x} IS NULL は構文エラー）
+        const existing = castId
+          ? await sql`
+              SELECT id, quantity FROM slip_items
+              WHERE slip_id = ${params.id} AND product_id = ${productId}
+                AND item_type = 'product' AND cast_id = ${castId}
+            `
+          : await sql`
+              SELECT id, quantity FROM slip_items
+              WHERE slip_id = ${params.id} AND product_id = ${productId}
+                AND item_type = 'product' AND cast_id IS NULL
+            `;
         if (existing.length > 0) {
           const newQty = Number(existing[0].quantity) + Number(quantity);
-          const newSub = productPrice * newQty;
+          const newSub = Number(productPrice) * newQty;
           await sql`UPDATE slip_items SET quantity = ${newQty}, subtotal = ${newSub}, updated_at = NOW() WHERE id = ${existing[0].id}`;
         } else {
-          const sub = productPrice * quantity;
+          const sub = Number(productPrice) * Number(quantity);
           await sql`INSERT INTO slip_items (slip_id, product_id, product_name, product_price, quantity, subtotal, cast_id, item_type) VALUES (${params.id}, ${productId}, ${productName}, ${productPrice}, ${quantity}, ${sub}, ${castId}, ${effectiveItemType})`;
         }
       } else {
-        const sub = productPrice * quantity;
+        const sub = Number(productPrice) * Number(quantity);
         await sql`INSERT INTO slip_items (slip_id, product_id, product_name, product_price, quantity, subtotal, cast_id, item_type) VALUES (${params.id}, ${productId ?? null}, ${productName}, ${productPrice}, ${quantity}, ${sub}, ${castId}, ${effectiveItemType})`;
       }
       await sql`UPDATE slips SET subtotal = (SELECT COALESCE(SUM(subtotal),0) FROM slip_items WHERE slip_id = ${params.id}), updated_at = NOW() WHERE id = ${params.id}`;
