@@ -155,3 +155,90 @@ button, [role="button"] {
   line-height: 1.7;
   color: #3C2233;
 }
+.article-body .screenshot-box {
+  background: #F5F0F5;
+  border: 1px dashed #D4A0C0;
+  border-radius: 0.75rem;
+  padding: 0.875rem 1rem;
+  margin: 1.25rem 0;
+  font-size: 0.8125rem;
+  color: #A07090;
+  text-align: center;
+}
+.article-body hr {
+  border: none;
+  border-top: 1px solid #FFD6E7;
+  margin: 1.75rem 0;
+}
+.article-body .banner-box {
+  margin: 2rem 0 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid #FFD6E7;
+}
+.article-body .banner-box a {
+  display: block;
+  text-decoration: none;
+  background: linear-gradient(135deg, #1A0A14 0%, #3C0F28 100%);
+  padding: 1rem 1.25rem;
+  transition: opacity 0.2s;
+}
+.article-body .banner-box a:hover {
+  opacity: 0.9;
+}
+.article-body .banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.article-body .banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.article-body .banner-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FF6BA8;
+}
+.article-body .banner-desc {
+  font-size: 0.8125rem;
+  color: #F0C0D8;
+}
+.article-body .banner-btn {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: white;
+  background: var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  white-space: nowrap;
+}
+.article-body .permission-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.8125rem;
+}
+.article-body .permission-table th {
+  background: #1A0A14;
+  color: #FF6BA8;
+  padding: 0.5rem 0.625rem;
+  text-align: center;
+  font-weight: 600;
+}
+.article-body .permission-table td {
+  padding: 0.5rem 0.625rem;
+  border-bottom: 1px solid #FFD6E7;
+  text-align: center;
+  color: #3C2233;
+}
+.article-body .permission-table td:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+.article-body .permission-table tr:last-child td {
+  border-bottom: none;
+}
+
