@@ -242,23 +242,3 @@ button, [role="button"] {
   border-bottom: none;
 }
 
-.article-body .article-img-box {
-  margin: 1.25rem 0;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  border: 1px solid #FFD6E7;
-}
-.article-body .article-img-box img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-.article-body .article-img-caption {
-  font-size: 0.75rem;
-  color: #A07090;
-  text-align: center;
-  padding: 0.375rem 0.75rem;
-  background: #FFF5F8;
-  margin: 0;
-}
